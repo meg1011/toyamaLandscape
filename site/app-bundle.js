@@ -1059,7 +1059,7 @@ function PhotosPage() {
       display: 'inline-block'
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: 'photos/' + encodeURIComponent(lbPhoto.file),
+    src: 'photos/thumbs/' + encodeURIComponent(lbPhoto.file),
     alt: "",
     draggable: false,
     onContextMenu: e => e.preventDefault(),

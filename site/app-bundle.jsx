@@ -525,7 +525,7 @@ function PhotosPage() {
           style={{position:'fixed',inset:0,background:'rgba(0,0,0,.92)',zIndex:1000,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:'24px'}}>
           <div onClick={e => e.stopPropagation()} style={{maxWidth:'92vw',display:'flex',flexDirection:'column',alignItems:'center',gap:0}}>
             <div style={{position:'relative',display:'inline-block'}}>
-              <img src={'photos/' + encodeURIComponent(lbPhoto.file)} alt=""
+              <img src={'photos/thumbs/' + encodeURIComponent(lbPhoto.file)} alt=""
                 draggable={false}
                 onContextMenu={e => e.preventDefault()}
                 style={{maxWidth:'88vw',maxHeight:'76vh',objectFit:'contain',display:'block',userSelect:'none',WebkitUserSelect:'none'}} />
