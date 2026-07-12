@@ -1,6 +1,7 @@
 // ── Shared: Nav + Footer ─────────────────────────────────────────
 
 function SiteNav({ page, setPage }) {
+  const [menuOpen, setMenuOpen] = React.useState(false);
   const links = [
     { key: 'home',    label: 'Home' },
     { key: 'photos',  label: 'Photos' },
@@ -8,18 +9,28 @@ function SiteNav({ page, setPage }) {
     { key: 'journal', label: 'Journal' },
     { key: 'contact', label: 'Contact' },
   ];
+  const handleNav = (key) => {
+    setPage(key);
+    setMenuOpen(false);
+  };
   return (
     <nav className="site-nav">
-      <button className="site-nav__brand" onClick={() => setPage('home')}>
+      <button className="site-nav__brand" onClick={() => handleNav('home')}>
         <span className="site-nav__brand-main">富山風景写真</span>
         <span className="site-nav__brand-sub"><span className="brand-accent">Toyama</span> landscape photography | <span className="brand-accent">Megumi Matsuda</span></span>
       </button>
-      <ul className="site-nav__links">
+      <button
+        className={'nav-hamburger' + (menuOpen ? ' is-open' : '')}
+        onClick={() => setMenuOpen(o => !o)}
+        aria-label="メニュー">
+        <span /><span /><span />
+      </button>
+      <ul className={'site-nav__links' + (menuOpen ? ' is-open' : '')}>
         {links.map(l => (
           <li key={l.key}>
             <button
               className={page === l.key ? 'is-active' : ''}
-              onClick={() => setPage(l.key)}>
+              onClick={() => handleNav(l.key)}>
               {l.label}
             </button>
           </li>
