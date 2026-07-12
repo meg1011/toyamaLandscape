@@ -117,7 +117,7 @@ function HomePage({
   }, HERO_SLIDES.map((f, i) => /*#__PURE__*/React.createElement("img", {
     key: f,
     className: 'hero__img hero__slide' + (i === slide ? ' is-active' : ''),
-    src: 'photos/thumbs/' + encodeURIComponent(f),
+    src: 'photos/hero/' + encodeURIComponent(f),
     alt: "富山の風景",
     loading: i === 0 ? 'eager' : 'lazy'
   })), /*#__PURE__*/React.createElement("div", {
