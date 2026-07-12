@@ -563,35 +563,37 @@ function PhotosPage() {
 }
 // ── Site App ─────────────────────────────────────────────────────
 
+const NOTE_STATIC = [
+  { title:'帰省の車窓｜距離と時間', date:'2026年7月6日', link:'https://note.com/mm_photo/n/nc9f474f2a69b', thumb:'https://assets.st-note.com/production/uploads/images/283546234/rectangle_large_type_2_66da74cf84710643bccb7389ac99f8f9.jpeg?width=800' },
+  { title:'原点と旅立ち｜実家という場所', date:'2026年6月15日', link:'https://note.com/mm_photo/n/n2331310be20f', thumb:'https://assets.st-note.com/production/uploads/images/283532709/rectangle_large_type_2_4056f650580e80b83989f430cc579ee3.jpeg?width=800' },
+  { title:'父の背中｜いつでも味方だった', date:'2026年6月1日', link:'https://note.com/mm_photo/n/nc4e28fd9843f', thumb:'https://assets.st-note.com/production/uploads/images/277550835/rectangle_large_type_2_7541ebaa6225963523de054669ec4245.jpeg?width=800' },
+  { title:'風の抜ける夏｜夏の記憶', date:'2026年5月19日', link:'https://note.com/mm_photo/n/ne5e1de020259', thumb:'https://assets.st-note.com/production/uploads/images/277508236/rectangle_large_type_2_5c8c959093d006850f0af0ef6f154996.jpeg?width=800' },
+  { title:'祖母の手｜受け継がれる時間', date:'2026年5月8日', link:'https://note.com/mm_photo/n/n84e27d3e8fff', thumb:'https://assets.st-note.com/production/uploads/images/274149389/rectangle_large_type_2_d601951c2ff05e5a224726cf47e69d5d.jpeg?width=800' },
+  { title:'兄のあとを歩いた道｜兄妹の距離', date:'2026年4月20日', link:'https://note.com/mm_photo/n/ned7756aeebd1', thumb:'https://assets.st-note.com/production/uploads/images/277528580/rectangle_large_type_2_4262b09fa272bdaed4729f5395ebd62f.jpeg?width=800' },
+];
+
 function JournalPage({ setPage }) {
-  const [posts, setPosts] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
+  const [posts, setPosts] = React.useState(NOTE_STATIC);
 
   React.useEffect(() => {
-    const API_URL = 'https://note.com/api/v2/creators/mm_photo/contents?kind=note&page=1';
-    const PROXY = 'https://corsproxy.io/?' + encodeURIComponent(API_URL);
+    const RSS = 'https://note.com/mm_photo/rss';
+    const PROXY = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(RSS);
     fetch(PROXY)
-      .then(r => r.json())
-      .then(json => {
-        const items = (json?.data?.contents || []).slice(0, 6);
-        setPosts(items.map(item => {
-          const dateStr = item.publishAt || item.publish_at || '';
-          let dateLabel = '';
-          try {
-            const d = new Date(dateStr);
-            dateLabel = `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
-          } catch(e) { dateLabel = ''; }
-          return {
-            title: item.name || item.title || '',
-            link: item.noteUrl || item.note_url || `https://note.com/mm_photo/n/${item.key}`,
-            date: dateLabel,
-            thumb: item.eyecatch || item.eyecatchUrl || item.thumbnail_image_url || null,
-            excerpt: (item.body || item.description || '').replace(/<[^>]+>/g, '').slice(0, 90),
-          };
-        }));
-        setLoading(false);
+      .then(r => r.text())
+      .then(xml => {
+        const doc = new DOMParser().parseFromString(xml, 'text/xml');
+        const items = [...doc.querySelectorAll('item')].slice(0, 6).map(el => {
+          const title = el.querySelector('title')?.textContent || '';
+          const link  = el.querySelector('link')?.textContent || '';
+          const pub   = el.querySelector('pubDate')?.textContent || '';
+          const thumb = el.getElementsByTagName('media:thumbnail')[0]?.getAttribute('url') || '';
+          let date = '';
+          try { const d = new Date(pub); date = `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`; } catch(e) {}
+          return { title, link, date, thumb };
+        });
+        if (items.length > 0) setPosts(items);
       })
-      .catch(() => setLoading(false));
+      .catch(() => {});
   }, []);
 
   return (
@@ -634,9 +636,6 @@ function JournalPage({ setPage }) {
               ))}
             </div>
           </div>
-        )}
-        {loading && (
-          <p style={{fontFamily:'"Inter",sans-serif',fontSize:'12px',letterSpacing:'.1em',color:'rgba(255,255,255,.3)',marginBottom:80}}>Loading...</p>
         )}
       </div>
       <SiteFooter setPage={setPage} />
