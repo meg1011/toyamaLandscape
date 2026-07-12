@@ -103,7 +103,7 @@ const NOTE_POSTS = [{
   excerpt: "冬晴れの日、雨晴海岸から3000m級の立山連峰を望む。海越しの絶景は富山ならでは。",
   date: "2024.01"
 }];
-const HERO_SLIDES = ['DSC_5364.jpg', 'Z62_9898.jpg', '_BDS1874.JPG', '_BDS1987.jpg', 'DSC_2603.jpg'];
+const HERO_SLIDES = ['Z62_9898.jpg', '_BDS1874.JPG', '_BDS1987.jpg', 'DSC_2603.jpg'];
 function HomePage({
   setPage
 }) {
@@ -226,7 +226,7 @@ function AboutPage({
     className: "about-wrap"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("img", {
     className: "about-photo",
-    src: 'photos/' + encodeURIComponent('DSC_2015.jpg'),
+    src: 'photos/' + encodeURIComponent('DSC_5045.jpg'),
     alt: "松田恵美"
   })), /*#__PURE__*/React.createElement("div", {
     className: "about-text"

@@ -101,7 +101,6 @@ const NOTE_POSTS = [
 ];
 
 const HERO_SLIDES = [
-  'DSC_5364.jpg',
   'Z62_9898.jpg',
   '_BDS1874.JPG',
   '_BDS1987.jpg',
@@ -212,7 +211,7 @@ function AboutPage({ setPage }) {
           <div>
             <img
               className="about-photo"
-              src={'photos/' + encodeURIComponent('DSC_2015.jpg')}
+              src={'photos/' + encodeURIComponent('DSC_5045.jpg')}
               alt="松田恵美"
             />
           </div>
