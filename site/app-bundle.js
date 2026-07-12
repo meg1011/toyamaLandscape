@@ -841,11 +841,56 @@ const SEASON_EN = {
   '秋': 'Autumn',
   '冬': 'Winter'
 };
+const PAGE_SIZE = 24;
+function LazyImg({
+  src,
+  alt
+}) {
+  const ref = React.useRef(null);
+  const [loaded, setLoaded] = React.useState(false);
+  const [visible, setVisible] = React.useState(false);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setVisible(true);
+        obs.disconnect();
+      }
+    }, {
+      rootMargin: '200px'
+    });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    ref: ref,
+    style: {
+      width: '100%',
+      height: '100%',
+      background: '#111'
+    }
+  }, visible && /*#__PURE__*/React.createElement("img", {
+    src: src,
+    alt: alt,
+    decoding: "async",
+    onLoad: () => setLoaded(true),
+    style: {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+      display: 'block',
+      opacity: loaded ? 1 : 0,
+      transition: 'opacity .4s ease'
+    }
+  }));
+}
 function PhotosPage() {
   const cats = ['すべて', '春', '夏', '秋', '冬'];
   const [active, setActive] = React.useState('すべて');
   const [lightbox, setLightbox] = React.useState(null);
   const [lbIdx, setLbIdx] = React.useState(0);
+  const [showCount, setShowCount] = React.useState(PAGE_SIZE);
   const SEASON_ORDER = {
     '春': 0,
     '夏': 1,
@@ -861,6 +906,13 @@ function PhotosPage() {
     if (a.season === '春' && b.season === '春') return isSakura(a) ? -1 : isSakura(b) ? 1 : 0;
     return 0;
   });
+  const visible = filtered.slice(0, showCount);
+  const hasMore = showCount < filtered.length;
+
+  // フィルター変更時はリセット
+  React.useEffect(() => {
+    setShowCount(PAGE_SIZE);
+  }, [active]);
   React.useEffect(() => {
     function onKey(e) {
       if (!lightbox) return;
@@ -944,7 +996,7 @@ function PhotosPage() {
     className: "shell"
   }, /*#__PURE__*/React.createElement("div", {
     className: "gallery"
-  }, filtered.map((photo, i) => /*#__PURE__*/React.createElement("div", {
+  }, visible.map((photo, i) => /*#__PURE__*/React.createElement("div", {
     className: "gallery__item",
     key: photo.file,
     onClick: () => openLightbox(photo, i),
@@ -953,14 +1005,32 @@ function PhotosPage() {
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "gallery__frame"
-  }, /*#__PURE__*/React.createElement("img", {
+  }, /*#__PURE__*/React.createElement(LazyImg, {
     src: 'photos/thumbs/' + encodeURIComponent(photo.file),
-    alt: photo.location || photo.season,
-    loading: "lazy",
-    decoding: "async"
+    alt: photo.location || photo.season
   })), /*#__PURE__*/React.createElement("div", {
     className: "meta"
-  }, /*#__PURE__*/React.createElement("b", null, photo.location || ' '), /*#__PURE__*/React.createElement("span", null, photo.season, "  /  ", SEASON_EN[photo.season])))))), lightbox && /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("b", null, photo.location || ' '), /*#__PURE__*/React.createElement("span", null, photo.season, "  /  ", SEASON_EN[photo.season]))))), hasMore && /*#__PURE__*/React.createElement("div", {
+    style: {
+      textAlign: 'center',
+      padding: '40px 0 60px'
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "btn-square",
+    onClick: () => setShowCount(c => c + PAGE_SIZE)
+  }, "もっと見る (", showCount, " / ", filtered.length, ")")), !hasMore && filtered.length > PAGE_SIZE && /*#__PURE__*/React.createElement("div", {
+    style: {
+      textAlign: 'center',
+      padding: '24px 0 60px'
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontFamily: '"Inter",sans-serif',
+      fontSize: 11,
+      letterSpacing: '.2em',
+      color: 'rgba(255,255,255,.3)'
+    }
+  }, "— ", filtered.length, " photos —"))), lightbox && /*#__PURE__*/React.createElement("div", {
     className: "lb-overlay",
     onClick: () => setLightbox(null),
     style: {

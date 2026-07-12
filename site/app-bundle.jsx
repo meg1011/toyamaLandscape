@@ -370,12 +370,48 @@ const ALL_PHOTOS = [
 ];
 
 const SEASON_EN = { '春':'Spring', '夏':'Summer', '秋':'Autumn', '冬':'Winter' };
+const PAGE_SIZE = 24;
+
+function LazyImg({ src, alt }) {
+  const ref = React.useRef(null);
+  const [loaded, setLoaded] = React.useState(false);
+  const [visible, setVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setVisible(true); obs.disconnect(); }
+    }, { rootMargin: '200px' });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} style={{width:'100%',height:'100%',background:'#111'}}>
+      {visible && (
+        <img
+          src={src}
+          alt={alt}
+          decoding="async"
+          onLoad={() => setLoaded(true)}
+          style={{
+            width:'100%',height:'100%',objectFit:'cover',display:'block',
+            opacity: loaded ? 1 : 0,
+            transition: 'opacity .4s ease',
+          }}
+        />
+      )}
+    </div>
+  );
+}
 
 function PhotosPage() {
   const cats = ['すべて', '春', '夏', '秋', '冬'];
   const [active, setActive] = React.useState('すべて');
   const [lightbox, setLightbox] = React.useState(null);
   const [lbIdx, setLbIdx] = React.useState(0);
+  const [showCount, setShowCount] = React.useState(PAGE_SIZE);
 
   const SEASON_ORDER = {'春':0,'夏':1,'秋':2,'冬':3,'':4};
   const isSakura = (p) =>
@@ -392,6 +428,12 @@ function PhotosPage() {
       if (a.season === '春' && b.season === '春') return isSakura(a) ? -1 : isSakura(b) ? 1 : 0;
       return 0;
     });
+
+  const visible = filtered.slice(0, showCount);
+  const hasMore = showCount < filtered.length;
+
+  // フィルター変更時はリセット
+  React.useEffect(() => { setShowCount(PAGE_SIZE); }, [active]);
 
   React.useEffect(() => {
     function onKey(e) {
@@ -442,14 +484,15 @@ function PhotosPage() {
 
       <div className="shell">
         <div className="gallery">
-          {filtered.map((photo, i) => (
+          {visible.map((photo, i) => (
             <div className="gallery__item" key={photo.file}
               onClick={() => openLightbox(photo, i)}
               style={{cursor:'pointer'}}>
               <div className="gallery__frame">
-                <img src={'photos/thumbs/' + encodeURIComponent(photo.file)}
+                <LazyImg
+                  src={'photos/thumbs/' + encodeURIComponent(photo.file)}
                   alt={photo.location || photo.season}
-                  loading="lazy" decoding="async" />
+                />
               </div>
               <div className="meta">
                 <b>{photo.location || ' '}</b>
@@ -458,6 +501,23 @@ function PhotosPage() {
             </div>
           ))}
         </div>
+
+        {hasMore && (
+          <div style={{textAlign:'center',padding:'40px 0 60px'}}>
+            <button
+              className="btn-square"
+              onClick={() => setShowCount(c => c + PAGE_SIZE)}>
+              もっと見る ({showCount} / {filtered.length})
+            </button>
+          </div>
+        )}
+        {!hasMore && filtered.length > PAGE_SIZE && (
+          <div style={{textAlign:'center',padding:'24px 0 60px'}}>
+            <p style={{fontFamily:'"Inter",sans-serif',fontSize:11,letterSpacing:'.2em',color:'rgba(255,255,255,.3)'}}>
+              — {filtered.length} photos —
+            </p>
+          </div>
+        )}
       </div>
 
       {lightbox && (
