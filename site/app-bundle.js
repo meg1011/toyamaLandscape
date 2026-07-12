@@ -340,7 +340,7 @@ const ALL_PHOTOS = [{
   location: "宇奈月温泉駅",
   detail: "富山県黒部市"
 }, {
-  file: "ADS_0993_富山市神通峡片路峡.JPG",
+  file: "ADS_0993.JPG",
   season: "秋",
   location: "神通峡片路峡",
   detail: "富山県富山市"
@@ -465,7 +465,7 @@ const ALL_PHOTOS = [{
   location: "神通川と立山連峰",
   detail: "富山県富山市"
 }, {
-  file: "_ADS0003_富山市夏の立山連邦.jpg",
+  file: "_ADS0003.jpg",
   season: "夏",
   location: "立山連峰",
   detail: "富山県富山市"
@@ -475,17 +475,17 @@ const ALL_PHOTOS = [{
   location: "田園と電車（高山線）",
   detail: "富山県富山市"
 }, {
-  file: "_ADS0702_富山市富山駅の夜.JPG",
+  file: "_ADS0702.JPG",
   season: "夏",
   location: "富山駅",
   detail: "富山県富山市"
 }, {
-  file: "_ADS0704_富山市環水公園.jpg",
+  file: "_ADS0704.jpg",
   season: "夏",
   location: "環水公園",
   detail: "富山県富山市"
 }, {
-  file: "_ADS0774_富山市富山駅の夜.jpg",
+  file: "_ADS0774.jpg",
   season: "夏",
   location: "富山駅の路面電車",
   detail: "富山県富山市"
@@ -515,27 +515,27 @@ const ALL_PHOTOS = [{
   location: "海王丸パーク",
   detail: "富山県射水市"
 }, {
-  file: "_ADS1799_立山町みくりが池.JPG",
+  file: "_ADS1799.JPG",
   season: "夏",
   location: "みくりが池",
   detail: "富山県立山町"
 }, {
-  file: "_ADS2129_立山町アルペンルート..JPG",
+  file: "_ADS2129.JPG",
   season: "夏",
   location: "立山アルペンルート",
   detail: "富山県立山町"
 }, {
-  file: "_ADS2238_立山町アルペンルート黒部ダム.JPG",
+  file: "_ADS2238.JPG",
   season: "夏",
   location: "黒部ダム",
   detail: "富山県立山町"
 }, {
-  file: "_ADS2265_立山町アルペンルート黒部ダム.JPG",
+  file: "_ADS2265.JPG",
   season: "夏",
   location: "黒部ダム",
   detail: "富山県立山町"
 }, {
-  file: "_ADS2876_富山市夕暮れの立山.JPG",
+  file: "_ADS2876.JPG",
   season: "夏",
   location: "立山連峰",
   detail: "富山県富山市"
@@ -550,12 +550,12 @@ const ALL_PHOTOS = [{
   location: "杉沢の沢すぎ",
   detail: "富山県朝日町"
 }, {
-  file: "_BDS0241_富山市護国神社の桜.jpg",
+  file: "_BDS0241.jpg",
   season: "春",
   location: "護国神社",
   detail: "富山県富山市"
 }, {
-  file: "_BDS0260_富山市護国神社の桜.jpg",
+  file: "_BDS0260.jpg",
   season: "春",
   location: "護国神社",
   detail: "富山県富山市"
@@ -565,22 +565,22 @@ const ALL_PHOTOS = [{
   location: "磯部堤の桜",
   detail: "富山県富山市"
 }, {
-  file: "_BDS0398_富山市富山城の桜.jpg",
+  file: "_BDS0398.jpg",
   season: "春",
   location: "富山城",
   detail: "富山県富山市"
 }, {
-  file: "_BDS0526_富山市松川べりの桜.JPG",
+  file: "_BDS0526.JPG",
   season: "春",
   location: "松川べりと路面電車",
   detail: "富山県富山市"
 }, {
-  file: "_BDS0545_富山市松川べりの桜.jpg",
+  file: "_BDS0545.jpg",
   season: "春",
   location: "松川べり",
   detail: "富山県富山市"
 }, {
-  file: "_BDS0828_朝日町舟川べり.jpg",
+  file: "_BDS0828.jpg",
   season: "春",
   location: "舟川べり",
   detail: "富山県朝日町"
@@ -590,7 +590,7 @@ const ALL_PHOTOS = [{
   location: "新湊大橋",
   detail: "富山県射水市"
 }, {
-  file: "_BDS0872_朝日町舟川べり.jpg",
+  file: "_BDS0872.jpg",
   season: "春",
   location: "舟川べり",
   detail: "富山県朝日町"
@@ -605,7 +605,7 @@ const ALL_PHOTOS = [{
   location: "電車（万葉線）",
   detail: "富山県射水市"
 }, {
-  file: "_BDS1163_富山市呉羽山公園・都市緑化植物園.jpg",
+  file: "_BDS1163.jpg",
   season: "春",
   location: "呉羽山公園",
   detail: "富山県富山市"
@@ -615,17 +615,17 @@ const ALL_PHOTOS = [{
   location: "電車（氷見線）",
   detail: "富山県氷見市"
 }, {
-  file: "_BDS1332_富山市富山城.JPG",
+  file: "_BDS1332.JPG",
   season: "夏",
   location: "富山城",
   detail: "富山県富山市"
 }, {
-  file: "_BDS1422_富山県中新川郡立山町_立山駅.jpg",
+  file: "_BDS1422.jpg",
   season: "秋",
   location: "立山駅",
   detail: "富山県立山町"
 }, {
-  file: "_BDS1448_富山市本宮砂防堰堤.jpg",
+  file: "_BDS1448.jpg",
   season: "秋",
   location: "本宮砂防堰堤",
   detail: "富山県富山市"
@@ -680,7 +680,7 @@ const ALL_PHOTOS = [{
   location: "黒部トロッコ電車",
   detail: "富山県黒部市"
 }, {
-  file: "_BDS2211_黒部市宇奈月町愛本橋.jpg",
+  file: "_BDS2211.jpg",
   season: "秋",
   location: "愛本橋",
   detail: "富山県黒部市宇奈月町"
@@ -690,7 +690,7 @@ const ALL_PHOTOS = [{
   location: "電車（高山線）",
   detail: "富山県富山市"
 }, {
-  file: "_BDS2521_富山市富山城.JPG",
+  file: "_BDS2521.JPG",
   season: "夏",
   location: "富山城",
   detail: "富山県富山市"
@@ -725,12 +725,12 @@ const ALL_PHOTOS = [{
   location: "桜ヶ池",
   detail: "富山県南砺市"
 }, {
-  file: "_BDS3432_富山市富山駅ロータリー.JPG",
+  file: "_BDS3432.JPG",
   season: "夏",
   location: "富山駅",
   detail: "富山県富山市"
 }, {
-  file: "_BDS3518_富山市市電.JPG",
+  file: "_BDS3518.JPG",
   season: "夏",
   location: "富山駅と路面電車",
   detail: "富山県富山市"
